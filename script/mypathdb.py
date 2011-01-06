@@ -11,6 +11,7 @@ class PathForName:
         self.dbcur.execute("""create table namepath(name text,dir text)""")
 
     def addNamePathPair(self,name,path):
+        print("addNamePathPair")
         t = (name,path)
         self.dbcur.execute("select * from namepath where name = ?",t[0:1])
         if self.dbcur.rowcount > 1 :
@@ -29,7 +30,8 @@ The name  you inputed has exist please choise another name """)
     
     def getAllPathNamePair(self):
         self.dbcur.execute("select * from namepath")
-        return self.dbcur.fetchall()
+        return  "{0}".format(self.dbcur.fetchall())
+
 
 if __name__ == "__main__" :
     pfn = PathForName()
