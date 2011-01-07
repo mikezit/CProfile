@@ -3,6 +3,9 @@
 
 #!/bin/bash
 
+FALSE=1
+TRUE=0
+
 function list_all_name_path_pairs
 {
 python3.1 <<EOF
@@ -15,6 +18,7 @@ EOF
 
 function insert_name_path_pair
 {
+echo "insert_name_path_pair"
 python3.1 <<EOF
 import mypathdb;
 pathdb = mypathdb.PathForName()
@@ -33,6 +37,7 @@ str = pathdb.getPath("$1")
 print(str)
 EOF
 `
+cd $name
 }
 
 isAdd=$FALSE
@@ -44,20 +49,19 @@ while getopts ":lin:p:h" optname
 do
     case "$optname" in
 	"l")
-	    echo "list all name path pair"
+
 	    isList=$TRUE
 	    list_all_name_path_pairs
 	    ;;
 	"i")
 	    echo "add a name path pair"
 	    isAdd=$TRUE
+	    echo "isAdd = $isAdd"
 	    ;;
 	"n")
-	    echo "the short name of the path"
 	    name=$OPTARG
 	    ;;
 	"p")
-	    echo "the full path of the short name"
 	    path=$OPTARG
 	    ;;
 	"h")
@@ -67,14 +71,20 @@ do
     esac
 done
 
-if [ $isList ]
+echo "$isAdd"
+echo "$isList"
+
+if [ $isList -eq 0 ]
 then
     exit
 fi
-if [ $isAdd ] 
+
+if [ $isAdd -eq 0 ]
 then
     insert_name_path_pair $name $path 
-else
-    search_path_of_name $name
+    exit
 fi
+
+search_path_of_name $name
+
 
