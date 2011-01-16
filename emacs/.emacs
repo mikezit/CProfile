@@ -190,7 +190,7 @@ semantic-displayor-ghost))
  (eval-after-load "color-theme"
    '(progn
       (color-theme-initialize)
-      (color-theme-jianjun)))
+      (color-theme-jianjun-2)))
 ;      (color-theme-scintilla)))
 ;      (color-theme-katester)))
 ;      (color-theme-deep-blue)))
