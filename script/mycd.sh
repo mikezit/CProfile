@@ -33,6 +33,7 @@ str = pathdb.getPath("$1")
 print(str)
 EOF
 `
+cd $name
 }
 
 isAdd=$FALSE
